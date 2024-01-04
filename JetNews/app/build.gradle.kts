@@ -135,6 +135,8 @@ dependencies {
 
     implementation(libs.google.android.material)
 
+    implementation( "com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta" )
+
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.runner)

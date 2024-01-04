@@ -19,10 +19,14 @@ package com.example.jetnews.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.example.jetnews.JetnewsApplication
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
 
@@ -33,6 +37,18 @@ class MainActivity : ComponentActivity() {
 
         val appContainer = (application as JetnewsApplication).container
         setContent {
+            val systemUiController = rememberSystemUiController()
+            val useDarkIcons = !isSystemInDarkTheme()
+
+            DisposableEffect(systemUiController, useDarkIcons) {
+                systemUiController.setSystemBarsColor(
+                    color = Color.Transparent,
+                    darkIcons = useDarkIcons
+                )
+
+                onDispose {}
+            }
+
             val widthSizeClass = calculateWindowSizeClass(this).widthSizeClass
             JetnewsApp(appContainer, widthSizeClass)
         }
